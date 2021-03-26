@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+		
+		<style>
+		
+		*{
+		margin:0px;
+		padding:0px;
+		}
+		
+		#act{
+		
+		visibility:visible;
+		
+		}
+		
+		#nonact{
+		
+		display:none;
+		visibility:hidden;
+		
+		}
+		
+		
+		table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+		
+	@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	}
+	
+@media only screen and (min-width: 951px){
+
+		table{
+		
+		  margin-left: auto;
+ 		  margin-right: auto;
+		
+		}
+}
+
+input[type=text]{
+
+border:radius;
+height:37px;
+margin-top:3px;
+
+}
+
+input[type=text]:focus {
+  background-color: lightblue;
+}
+
+.bg-white {
+    background-color: #dee2e6!important;
+    
+}
+
+#space{
+margin-bottom:100px;
+}
+		</style>
+
+    </head>
+	<body>
+
+		
+		<nav id="navbar_1" class="navbar fixed-top navbar-expand navbar-light bg-white">
+  <a class="navbar-brand" href="#">LARHCHIM</a>
+ 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
+    	<span class="navbar-toggler-icon"></span>
+  </button>
+<div class="collapse navbar-collapse" id="main_nav">
+	<ul class="nav nav-pills ml-auto">
+
+			<li class="nav-item"><a th:href="@{home}" class="scrollto nav-link" type="submit"> Home </a></li>
+	
+
+		<li class="nav-item"><a th:href="@{ajouter}"  class="scrollto nav-link active"> Ajouter Article </a></li>
+	</ul>
+</div> <!-- navbar-collapse.// -->
+</nav>
+
+<script>
+//Activate bootstrap scrollspy
+$('body').scrollspy({ 
+    target: '#navbar_1',
+    offset: 80
+});
+
+// Go to specific div with animation
+$('.scrollto').click(function(event) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({ scrollTop: $($anchor.attr('href')).offset().top - 40  }, 1500);
+    event.preventDefault();
+});
+</script>
+
+				
+				<p id="space"></p>
+					
+	
+				
+	
+					<h1 style="text-align:center" >Formulaire d'ajout</h1>
+					
+
+<form id="formData" th:action="@{ajouterArticle}" method="POST">
+
+					
+					<table  class="table" style="text-align:center">
+					
+							
+							<tr>
+							
+							    	<th class="text-center" scope="col">Nom Article</th>
+							    	
+							    	<td class="text-center"><input name="nomArticle" type="text" placeholder="Nom de l'article"></td>
+							    	
+							
+							</tr>
+							
+							<tr>
+							
+							    	<th class="text-center" scope="col">Nom Auteur</th>
+							    	
+							    	<td class="text-center"><input name="nomAuteur" type="text" placeholder="Nom de l'auteur"></td>
+							    	
+							
+							</tr>
+							
+						
+							<tr>
+							
+							    	<th class="text-center" scope="col">Texte Article</th>
+							    	<td class="text-center"><input maxlength="50"  name="texteArticle" type="text" placeholder="Texte de l'article"></td>
+							    	
+							
+							</tr>
+							<tr>
+							
+							    	<th class="text-center" scope="col">Photo Article</th>
+							    	<td class="text-center"><input name="photoArticle" type="file"></td>
+					
+							    	
+							
+							</tr>
+					
+					</table>
+					
+					
+
+<center>
+
+						<button onclick="javascript:sendDate();" class="btn btn-primary"> Ajouter Article</button>
+
+</center>
+									<p id="space"></p>
+					
+				
+				
+</form>
+
+
+
+					
+					
+					
+					
+
+
+
+	</body>
+</html>
